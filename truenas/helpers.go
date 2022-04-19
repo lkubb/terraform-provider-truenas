@@ -60,3 +60,12 @@ func convertStringMap(v map[string]interface{}) map[string]string {
 	}
 	return m
 }
+
+func expandIntegers(items []interface{}) *[]int32 {
+	result := make([]int32, 0, len(items))
+
+	for _, item := range items {
+		result = append(result, int32(item.(int)))
+	}
+	return &result
+}
