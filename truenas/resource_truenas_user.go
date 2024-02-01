@@ -189,6 +189,9 @@ func resourceTrueNASUserRead(ctx context.Context, d *schema.ResourceData, m inte
 
 	c := m.(*api.APIClient)
 	id, err := strconv.Atoi(d.Id())
+	if err != nil {
+		return diag.Errorf("error parsing group ID: %s", err)
+	}
 
 	resp, http, err := c.UserApi.GetUser(ctx, int32(id)).Execute()
 
@@ -231,10 +234,8 @@ func resourceTrueNASUserRead(ctx context.Context, d *schema.ResourceData, m inte
 	d.Set("sudo", *resp.Sudo)
 	d.Set("sudo_nopasswd", *resp.SudoNopasswd)
 
-	if resp.SudoCommands != nil {
-		if err := d.Set("sudo_commands", flattenStringList(*resp.SudoCommands)); err != nil {
-			return diag.Errorf("error setting sudo_commands: %s", err)
-		}
+	if err := d.Set("sudo_commands", flattenStringList(resp.SudoCommands)); err != nil {
+		return diag.Errorf("error setting sudo_commands: %s", err)
 	}
 
 	d.Set("microsoft_account", *resp.MicrosoftAccount)
@@ -260,10 +261,8 @@ func resourceTrueNASUserRead(ctx context.Context, d *schema.ResourceData, m inte
 		}
 	}
 
-	if resp.Groups != nil {
-		if err := d.Set("groups", flattenInt32List(*resp.Groups)); err != nil {
-			return diag.Errorf("error setting users: %s", err)
-		}
+	if err := d.Set("groups", flattenInt32List(resp.Groups)); err != nil {
+		return diag.Errorf("error setting users: %s", err)
 	}
 
 	sshpubkey := resp.Sshpubkey.Get()

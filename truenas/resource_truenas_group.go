@@ -99,6 +99,9 @@ func resourceTrueNASGroupRead(ctx context.Context, d *schema.ResourceData, m int
 
 	c := m.(*api.APIClient)
 	id, err := strconv.Atoi(d.Id())
+	if err != nil {
+		return diag.Errorf("error parsing group ID: %s", err)
+	}
 
 	resp, http, err := c.GroupApi.GetGroup(ctx, int32(id)).Execute()
 
@@ -120,18 +123,14 @@ func resourceTrueNASGroupRead(ctx context.Context, d *schema.ResourceData, m int
 	d.Set("sudo", *resp.Sudo)
 	d.Set("sudo_nopasswd", *resp.SudoNopasswd)
 
-	if resp.SudoCommands != nil {
-		if err := d.Set("sudo_commands", flattenStringList(*resp.SudoCommands)); err != nil {
-			return diag.Errorf("error setting sudo_commands: %s", err)
-		}
+	if err := d.Set("sudo_commands", flattenStringList(resp.SudoCommands)); err != nil {
+		return diag.Errorf("error setting sudo_commands: %s", err)
 	}
 
 	d.Set("smb", *resp.Smb)
 
-	if resp.Users != nil {
-		if err := d.Set("users", flattenInt32List(*resp.Users)); err != nil {
-			return diag.Errorf("error setting users: %s", err)
-		}
+	if err := d.Set("users", flattenInt32List(resp.Users)); err != nil {
+		return diag.Errorf("error setting users: %s", err)
 	}
 
 	d.Set("local", *resp.Local)

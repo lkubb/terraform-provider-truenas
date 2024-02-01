@@ -101,18 +101,14 @@ func dataSourceTrueNASGroupRead(ctx context.Context, d *schema.ResourceData, m i
 	d.Set("sudo", *resp.Sudo)
 	d.Set("sudo_nopasswd", *resp.SudoNopasswd)
 
-	if resp.SudoCommands != nil {
-		if err := d.Set("sudo_commands", flattenStringList(*resp.SudoCommands)); err != nil {
-			return diag.Errorf("error setting sudo_commands: %s", err)
-		}
+	if err := d.Set("sudo_commands", flattenStringList(resp.SudoCommands)); err != nil {
+		return diag.Errorf("error setting sudo_commands: %s", err)
 	}
 
 	d.Set("smb", *resp.Smb)
 
-	if resp.Users != nil {
-		if err := d.Set("users", flattenInt32List(*resp.Users)); err != nil {
-			return diag.Errorf("error setting users: %s", err)
-		}
+	if err := d.Set("users", flattenInt32List(resp.Users)); err != nil {
+		return diag.Errorf("error setting users: %s", err)
 	}
 
 	d.Set("local", *resp.Local)

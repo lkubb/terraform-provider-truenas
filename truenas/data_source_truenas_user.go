@@ -188,10 +188,8 @@ func dataSourceTrueNASUserRead(ctx context.Context, d *schema.ResourceData, m in
 	d.Set("sudo", *resp.Sudo)
 	d.Set("sudo_nopasswd", *resp.SudoNopasswd)
 
-	if resp.SudoCommands != nil {
-		if err := d.Set("sudo_commands", flattenStringList(*resp.SudoCommands)); err != nil {
-			return diag.Errorf("error setting sudo_commands: %s", err)
-		}
+	if err := d.Set("sudo_commands", flattenStringList(resp.SudoCommands)); err != nil {
+		return diag.Errorf("error setting sudo_commands: %s", err)
 	}
 
 	d.Set("microsoft_account", *resp.MicrosoftAccount)
@@ -213,10 +211,8 @@ func dataSourceTrueNASUserRead(ctx context.Context, d *schema.ResourceData, m in
 		}
 	}
 
-	if resp.Groups != nil {
-		if err := d.Set("groups", flattenInt32List(*resp.Groups)); err != nil {
-			return diag.Errorf("error setting users: %s", err)
-		}
+	if err := d.Set("groups", flattenInt32List(resp.Groups)); err != nil {
+		return diag.Errorf("error setting users: %s", err)
 	}
 
 	if resp.Sshpubkey.IsSet() {
