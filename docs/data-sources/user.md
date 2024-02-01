@@ -25,10 +25,6 @@ data "truenas_user" "user" {
 
 - `user_id` (Number) User ID
 
-### Optional
-
-- `id` (String) The ID of this resource.
-
 ### Read-Only
 
 - `builtin` (Boolean) Whether this is a builtin user.
@@ -36,6 +32,7 @@ data "truenas_user" "user" {
 - `full_name` (String) This user's full name.
 - `groups` (Set of Number) List of group IDs this user is member in (resource IDs, not GIDs).
 - `home` (String) This user's home directory.
+- `id` (String) The ID of this resource.
 - `id_type_both` (Boolean) Samba: ID_TYPE_BOTH
 - `local` (Boolean) Whether this is a local user.
 - `locked` (Boolean) Prevents the user from logging in or using password-based services until this option is unset.

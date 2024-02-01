@@ -56,7 +56,6 @@ resource "truenas_user" "user" {
 - `email` (String) This user's email address.
 - `groups` (Set of Number) List of group IDs this user is member in (resource IDs, not GIDs).
 - `home` (String) This user's home directory. Must begin with /mnt, followed by a valid pool or disk name and be writable.
-- `id` (String) The ID of this resource.
 - `locked` (Boolean) Prevent the user from logging in or using password-based services until this option is unset. Locking an account is only possible when Disable Password is No and a Password has been created for the account.
 - `microsoft_account` (Boolean) Microsoft account: Allow additional username authentication methods for Windows >=8 clients.
 - `password` (String, Sensitive) This user's password.
@@ -73,6 +72,7 @@ resource "truenas_user" "user" {
 ### Read-Only
 
 - `builtin` (Boolean) Whether this is a builtin user.
+- `id` (String) The ID of this resource.
 - `id_type_both` (Boolean) Samba: ID_TYPE_BOTH
 - `local` (Boolean) Whether this is a local user.
 - `primary_group_name` (String) The name of this user's primary group.

@@ -25,14 +25,11 @@ data "truenas_group" "group" {
 
 - `group_id` (Number) Group ID
 
-### Optional
-
-- `id` (String) The ID of this resource.
-
 ### Read-Only
 
 - `builtin` (Boolean) Whether this is a builtin group.
 - `gid` (Number) GID
+- `id` (String) The ID of this resource.
 - `id_type_both` (Boolean) Samba: ID_TYPE_BOTH
 - `local` (Boolean) Whether this is a local group.
 - `name` (String) This group's name.

@@ -38,7 +38,6 @@ resource "truenas_group" "group" {
 ### Optional
 
 - `gid` (Number) GID
-- `id` (String) The ID of this resource.
 - `smb` (Boolean) Samba authentication: Set to allow group to authenticate to Samba shares.
 - `sudo` (Boolean) Permit sudo usage by this group.
 - `sudo_commands` (Set of String) List of permitted sudo commands for this group. They must not rely on $PATH (i.e. have to be absolute).
@@ -49,6 +48,7 @@ resource "truenas_group" "group" {
 
 - `builtin` (Boolean) Whether this is a builtin group.
 - `group_id` (Number) Group ID
+- `id` (String) The ID of this resource.
 - `id_type_both` (Boolean) Samba: ID_TYPE_BOTH
 - `local` (Boolean) Whether this is a local group.
 
