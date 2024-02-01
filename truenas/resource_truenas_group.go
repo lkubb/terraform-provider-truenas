@@ -18,6 +18,9 @@ func resourceTrueNASGroup() *schema.Resource {
 		ReadContext:   resourceTrueNASGroupRead,
 		UpdateContext: resourceTrueNASGroupUpdate,
 		DeleteContext: resourceTrueNASGroupDelete,
+		Importer: &schema.ResourceImporter{
+			StateContext: schema.ImportStatePassthroughContext,
+		},
 		Schema: map[string]*schema.Schema{
 			"group_id": &schema.Schema{
 				Description: "Group ID",

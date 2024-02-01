@@ -19,6 +19,9 @@ func resourceTrueNASUser() *schema.Resource {
 		ReadContext:   resourceTrueNASUserRead,
 		UpdateContext: resourceTrueNASUserUpdate,
 		DeleteContext: resourceTrueNASUserDelete,
+		Importer: &schema.ResourceImporter{
+			StateContext: schema.ImportStatePassthroughContext,
+		},
 		Schema: map[string]*schema.Schema{
 			"user_id": &schema.Schema{
 				Description: "User ID",
